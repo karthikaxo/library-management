@@ -4,12 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-enum FineStatus {
-    PAID,
-    UNPAID
-}
-
 @Entity
+@Table
 public class Fine {
     @Id
     @GeneratedValue

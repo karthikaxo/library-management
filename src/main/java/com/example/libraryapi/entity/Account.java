@@ -5,12 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-enum Role {
-    LIBRARIAN,
-    MEMBER
-}
-
 @Entity
+@Table
 public class Account {
     @Id
     @GeneratedValue

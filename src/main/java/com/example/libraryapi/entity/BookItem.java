@@ -5,12 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-enum BookItemStatus {
-    AVAILABLE,
-    UNAVAILABLE
-}
-
 @Entity
+@Table
 public class BookItem {
     @Id
     @GeneratedValue

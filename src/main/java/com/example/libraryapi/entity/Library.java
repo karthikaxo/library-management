@@ -1,10 +1,10 @@
 package com.example.libraryapi.entity;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
+@Table
 public class Library {
     @Id
     @GeneratedValue

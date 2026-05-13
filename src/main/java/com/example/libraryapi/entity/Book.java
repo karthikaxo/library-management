@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table
 public class Book {
     @Id
     @GeneratedValue
@@ -27,4 +28,6 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private List<BookItem> copies; // copies of the same book
+
+    public Book() {}
 }

@@ -4,13 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-enum LendingStatus {
-    ACTIVE,
-    RETURNED,
-    LOST
-}
-
 @Entity
+@Table
 public class Lending {
     @Id
     @GeneratedValue
