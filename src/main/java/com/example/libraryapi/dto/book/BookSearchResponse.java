@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class BookSearchResponse {
 
