@@ -29,6 +29,9 @@ public class BookServiceImpl {
     public BookCreateResponse saveBook(BookCreateRequest bookDetails) {
         Book book = new Book();
 
+        if (bookRepository.existsByIsbn(bookDetails.getIsbn())) {
+            throw new RuntimeException("ISBN already exists.");
+        }
         book.setIsbn(bookDetails.getIsbn());
         book.setTitle(bookDetails.getTitle());
         book.setAuthor(bookDetails.getAuthor());
@@ -92,6 +95,9 @@ public class BookServiceImpl {
 
         // only updating metadata (partially or fully)
         if (bookUpdateRequest.getIsbn() != null) {
+            if (bookRepository.existsByIsbn(bookUpdateRequest.getIsbn())) {
+                throw new RuntimeException("ISBN already exists.");
+            }
             updatedBook.setIsbn(bookUpdateRequest.getIsbn());
         }
 
