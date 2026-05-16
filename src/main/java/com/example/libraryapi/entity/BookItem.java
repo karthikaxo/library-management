@@ -1,15 +1,21 @@
 package com.example.libraryapi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table
+@Data // getters, setters, toString, equals, and hashCode methods
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

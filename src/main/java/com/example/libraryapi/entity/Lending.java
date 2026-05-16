@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Table
 public class Lending {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
