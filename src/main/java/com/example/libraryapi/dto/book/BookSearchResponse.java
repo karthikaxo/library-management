@@ -1,9 +1,6 @@
 package com.example.libraryapi.dto.book;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -28,7 +26,8 @@ public class BookSearchResponse {
     @NotBlank
     private String category;
 
-    @Positive
+    @Min(1000)
+    @Max(2026)
     private int yearPublished;
 
     // info to be returned when searched, not included in Book entity
