@@ -1,7 +1,8 @@
 package com.example.libraryapi.dto.book;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class BookCreateRequest {
     @NotBlank
     private String category;
 
-    @Positive
+    @Min(1000)
+    @Max(2026)
     private int yearPublished;
 }
