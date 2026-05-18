@@ -40,8 +40,11 @@ public class BookServiceImpl {
         // copies is empty upon creation
         book.setCopies(new ArrayList<>());
 
+        // save book
+        Book savedBook = bookRepository.save(book);
+
         // convert to dto
-        return BookMapper.createToResponse(book);
+        return BookMapper.createToResponse(savedBook);
     }
 
 
@@ -62,9 +65,10 @@ public class BookServiceImpl {
     public List<BookSearchResponse> searchBooksBy(String title,
                                                   String author,
                                                   String category,
-                                                  int year) {
+                                                  Integer year) {
         // chaining specifications
-        Specification<Book> spec = Specification.where((Specification<Book>) null);
+        Specification<Book> spec =
+                (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
         if (title != null) {
             spec = spec.and(BookSpecification.likeTitle(title));
         }
@@ -74,9 +78,7 @@ public class BookServiceImpl {
         if (category != null) {
             spec = spec.and(BookSpecification.likeCategory(category));
         }
-        if (year > 0) {
-            spec = spec.and(BookSpecification.likeYear(year));
-        }
+        if (year != null && year >= 1000 && year <= 2026) spec = spec.and(BookSpecification.likeYear(year));
 
         List<Book> books =  bookRepository.findAll(spec);
 
@@ -90,12 +92,15 @@ public class BookServiceImpl {
     // Roles: Librarian, Admin
     // PATCH
     public BookUpdate updateBook(Long id, BookUpdate bookUpdateRequest) {
-        Book updatedBook = this.bookRepository.findById(id).orElseThrow(
+        Book updatedBook = bookRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("This book ID cannot be found."));
 
         // only updating metadata (partially or fully)
+
         if (bookUpdateRequest.getIsbn() != null) {
-            if (bookRepository.existsByIsbn(bookUpdateRequest.getIsbn())) {
+            Book existingBook = bookRepository.findByIsbn(bookUpdateRequest.getIsbn());
+            // if the ISBN of the existing book is not the current book being updated, then error
+            if (existingBook != null && !existingBook.getId().equals(id)) {
                 throw new RuntimeException("ISBN already exists.");
             }
             updatedBook.setIsbn(bookUpdateRequest.getIsbn());
@@ -113,7 +118,9 @@ public class BookServiceImpl {
             updatedBook.setCategory(bookUpdateRequest.getCategory());
         }
 
-        if (bookUpdateRequest.getYearPublished() > 0) {
+        if (bookUpdateRequest.getYearPublished() != null &&
+                bookUpdateRequest.getYearPublished() >= 1000 &&
+                bookUpdateRequest.getYearPublished() <= 2026) {
             updatedBook.setYearPublished(bookUpdateRequest.getYearPublished());
         }
 
