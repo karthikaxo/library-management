@@ -6,8 +6,8 @@ import org.springframework.data.jpa.domain.Specification;
 public class BookSpecification {
     public static Specification<Book> likeTitle(String title) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.like(root.get("title"), "%" + title + "%");
-        // within col named 'title', look for patter with given string title
+                criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + title.toLowerCase() + "%");
+        // within col named 'title', look for pattern with given string title
     }
 
     public static Specification<Book> likeAuthor(String author) {
@@ -22,7 +22,7 @@ public class BookSpecification {
 
     public static Specification<Book> likeYear(int year) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("year"), year);
+                criteriaBuilder.equal(root.get("yearPublished"), year);
         // specific year
     }
 }
