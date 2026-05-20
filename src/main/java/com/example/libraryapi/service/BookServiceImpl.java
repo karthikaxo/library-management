@@ -92,7 +92,7 @@ public class BookServiceImpl {
     // Roles: Librarian, Admin
     // PATCH
     public BookUpdate updateBook(Long id, BookUpdate bookUpdateRequest) {
-        Book updatedBook = bookRepository.findById(id).orElseThrow(
+        Book book = bookRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("This book ID cannot be found."));
 
         // only updating metadata (partially or fully)
@@ -103,30 +103,31 @@ public class BookServiceImpl {
             if (existingBook != null && !existingBook.getId().equals(id)) {
                 throw new RuntimeException("ISBN already exists.");
             }
-            updatedBook.setIsbn(bookUpdateRequest.getIsbn());
+            book.setIsbn(bookUpdateRequest.getIsbn());
+        }
+
+        if (bookUpdateRequest.getYearPublished() != null) {
+            if (bookUpdateRequest.getYearPublished() >= 1000 && bookUpdateRequest.getYearPublished() <= 2026) {
+                throw new RuntimeException("Invalid year.");
+            }
+            book.setYearPublished(bookUpdateRequest.getYearPublished());
         }
 
         if (bookUpdateRequest.getTitle() != null) {
-            updatedBook.setTitle(bookUpdateRequest.getTitle());
+            book.setTitle(bookUpdateRequest.getTitle());
         }
 
         if (bookUpdateRequest.getAuthor() != null) {
-            updatedBook.setAuthor(bookUpdateRequest.getAuthor());
+            book.setAuthor(bookUpdateRequest.getAuthor());
         }
 
         if (bookUpdateRequest.getCategory() != null) {
-            updatedBook.setCategory(bookUpdateRequest.getCategory());
+            book.setCategory(bookUpdateRequest.getCategory());
         }
 
-        if (bookUpdateRequest.getYearPublished() != null &&
-                bookUpdateRequest.getYearPublished() >= 1000 &&
-                bookUpdateRequest.getYearPublished() <= 2026) {
-            updatedBook.setYearPublished(bookUpdateRequest.getYearPublished());
-        }
+        Book updatedBook = bookRepository.save(book);
 
-        Book book = bookRepository.save(updatedBook);
-
-        return BookMapper.updateToResponse(book);
+        return BookMapper.updateToResponse(updatedBook);
     }
 
 
