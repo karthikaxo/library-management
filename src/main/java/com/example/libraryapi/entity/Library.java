@@ -23,9 +23,9 @@ public class Library {
     @Column(unique = true, nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "library")
+    @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<BookItem> inventory; // book items in a library
 
-    @OneToMany(mappedBy = "library")
+    @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Account> accounts; // 'LIBRARIAN'(s) in a specific library
 }
