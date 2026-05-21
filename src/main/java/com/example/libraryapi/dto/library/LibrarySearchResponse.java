@@ -1,7 +1,7 @@
 package com.example.libraryapi.dto.library;
 
-import com.example.libraryapi.dto.library.SubResponse.InventoryResponse;
-import com.example.libraryapi.dto.library.SubResponse.LibrarianResponse;
+import com.example.libraryapi.dto.library.SearchResponseExtra.InventoryResponse;
+import com.example.libraryapi.dto.library.SearchResponseExtra.LibrarianResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;

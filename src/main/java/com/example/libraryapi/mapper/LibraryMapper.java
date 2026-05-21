@@ -3,8 +3,8 @@ package com.example.libraryapi.mapper;
 import com.example.libraryapi.dto.library.LibraryCreateResponse;
 import com.example.libraryapi.dto.library.LibrarySearchResponse;
 import com.example.libraryapi.dto.library.LibraryUpdate;
-import com.example.libraryapi.dto.library.SubResponse.InventoryResponse;
-import com.example.libraryapi.dto.library.SubResponse.LibrarianResponse;
+import com.example.libraryapi.dto.library.SearchResponseExtra.InventoryResponse;
+import com.example.libraryapi.dto.library.SearchResponseExtra.LibrarianResponse;
 import com.example.libraryapi.entity.BookItem;
 import com.example.libraryapi.entity.Library;
 
