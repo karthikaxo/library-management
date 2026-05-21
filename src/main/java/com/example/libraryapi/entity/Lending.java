@@ -1,11 +1,17 @@
 package com.example.libraryapi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Lending {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
