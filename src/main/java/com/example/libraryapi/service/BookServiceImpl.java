@@ -61,24 +61,32 @@ public class BookServiceImpl {
     }
 
     // Roles: ALL
-    // search for books through filters
-    public List<BookSearchResponse> searchBooksBy(String title,
-                                                  String author,
-                                                  String category,
-                                                  Integer year) {
+    // search for books by ISBN
+    public BookSearchResponse searchBookByIsbn(String isbn) {
+        Book book = bookRepository.findByIsbn(isbn);
+        if (book == null) throw new RuntimeException("This book ID cannot be found.");
+        return BookMapper.searchToResponse(book);
+    }
+
+    // Roles: ALL
+    // search for books through category, year, titles, authors
+    public List<BookSearchResponse> searchBookBy(String title,
+                                                 String author,
+                                                 String category,
+                                                 Integer year) {
         // chaining specifications
         Specification<Book> spec =
                 (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
         if (title != null) {
-            spec = spec.and(BookSpecification.likeTitle(title));
+            spec = spec.and(BookSpecification.equalTitle(title));
         }
         if (author != null) {
-            spec = spec.and(BookSpecification.likeAuthor(author));
+            spec = spec.and(BookSpecification.equalAuthor(author));
         }
         if (category != null) {
-            spec = spec.and(BookSpecification.likeCategory(category));
+            spec = spec.and(BookSpecification.equalCategory(category));
         }
-        if (year != null && year >= 1000 && year <= 2026) spec = spec.and(BookSpecification.likeYear(year));
+        if (year != null && year >= 1000 && year <= 2026) spec = spec.and(BookSpecification.equalYear(year));
 
         List<Book> books =  bookRepository.findAll(spec);
 

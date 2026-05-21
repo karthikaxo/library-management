@@ -57,7 +57,7 @@ public class LibraryServiceImpl {
     }
 
     // Roles: Admin
-    // filter through libraries by name and address
+    // filter through libraries address and similar names
     public List<LibrarySearchResponse> searchLibraryBy(String name, String address) {
         Specification<Library> spec = ((root, query, criteriaBuilder)
                 -> criteriaBuilder.conjunction());
@@ -65,7 +65,7 @@ public class LibraryServiceImpl {
             spec = spec.and(LibrarySpecification.likeName(name));
         }
         if (address != null) {
-            spec = spec.and(LibrarySpecification.likeAddress(address));
+            spec = spec.and(LibrarySpecification.equalAddress(address));
         }
         List<Library> libraries = libraryRepository.findAll(spec);
 

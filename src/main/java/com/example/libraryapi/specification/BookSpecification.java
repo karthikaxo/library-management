@@ -4,25 +4,37 @@ import com.example.libraryapi.entity.Book;
 import org.springframework.data.jpa.domain.Specification;
 
 public class BookSpecification {
-    public static Specification<Book> likeTitle(String title) {
+
+    // exact title
+    public static Specification<Book> equalTitle(String title) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + title.toLowerCase() + "%");
-        // within col named 'title', look for pattern with given string title
+                criteriaBuilder.equal(
+                        criteriaBuilder.lower(
+                                criteriaBuilder.trim(
+                                    root.get("title"))), title.trim().toLowerCase());
     }
 
-    public static Specification<Book> likeAuthor(String author) {
+    // exact author
+    public static Specification<Book> equalAuthor(String author) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.like(root.get("author"), "%" + author + "%");
+                criteriaBuilder.equal(
+                        criteriaBuilder.lower(
+                                criteriaBuilder.trim(
+                                        root.get("author"))), author.trim().toLowerCase());
     }
 
-    public static Specification<Book> likeCategory(String category) {
+    // exact category
+    public static Specification<Book> equalCategory(String category) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.like(root.get("category"), "%" + category + "%");
+                criteriaBuilder.equal(
+                        criteriaBuilder.lower(
+                                criteriaBuilder.trim(
+                                        root.get("category"))), category.trim().toLowerCase());
     }
 
-    public static Specification<Book> likeYear(int year) {
+    // exact year
+    public static Specification<Book> equalYear(int year) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("yearPublished"), year);
-        // specific year
     }
 }

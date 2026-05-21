@@ -27,19 +27,24 @@ public class BookController {
     }
 
 
-    @GetMapping("/search/{id}")
-    public BookSearchResponse searchBooksById(@PathVariable Long id) {
+    @GetMapping("/search/id/{id}")
+    public BookSearchResponse searchBookById(@PathVariable Long id) {
         return bookService.searchBookById(id);
     }
 
+    @GetMapping("/search/isbn/{ISBN}")
+    public BookSearchResponse searchBookById(@PathVariable String ISBN) {
+        return bookService.searchBookByIsbn(ISBN);
+    }
+
     @GetMapping("/search")
-    public List<BookSearchResponse> searchBooksBy(
+    public List<BookSearchResponse> searchBookBy(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) @Min(1000) @Max(2026) Integer year
     ) {
-        return bookService.searchBooksBy(title,author,category,year);
+        return bookService.searchBookBy(title,author,category,year);
     }
 
 
