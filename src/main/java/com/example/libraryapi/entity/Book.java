@@ -36,4 +36,12 @@ public class Book {
     // orphan removal: removal of BookItem from list deletes it from db
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookItem> copies; // copies of the same book
+
+    // helper methods
+
+    // used in BookItemServiceImpl
+    public void addBookItem(BookItem bookItem) {
+        copies.add(bookItem);
+        bookItem.setBook(this);
+    }
 }

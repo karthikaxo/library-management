@@ -28,4 +28,18 @@ public class Library {
 
     @OneToMany(mappedBy = "library", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Account> accounts; // 'LIBRARIAN'(s) in a specific library
+
+    // helper methods
+
+    // used in BookItemServiceImpl
+    public void addBookItem(BookItem bookItem) {
+        inventory.add(bookItem);
+        bookItem.setLibrary(this);
+    }
+
+    // used in BookItemServiceImpl
+    public void removeBookItem(BookItem bookItem) {
+        inventory.remove(bookItem);
+        bookItem.setLibrary(null);
+    }
 }
