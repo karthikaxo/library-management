@@ -1,9 +1,9 @@
-package com.example.libraryapi.dto.library.SubResponse;
+package com.example.libraryapi.dto.library.SearchResponseExtra;
 
-import com.example.libraryapi.entity.Role;
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LibrarianResponse {
+public class InventoryResponse {
     @Positive
     private Long id;
 
     @NotBlank
-    private String username;
+    private String title;
 
-    @NotBlank
-    private String email;
+    @PositiveOrZero
+    private int copies;
 
-    @NotNull
-    private Role role;
 }
