@@ -1,21 +1,21 @@
 ### Current Endpoints
 
-| Method | Endpoint                             | Description                                                 |
-|--------|--------------------------------------|-------------------------------------------------------------|
-| POST   | `/books/create`                      | Create a new book                                           |
-| GET    | `/books/search/id/{id}`              | Retrieve a book by ID                                       |
-| GET    | `/books/search/isbn/{isbn}`          | Retrieve a book by ISBN                                     |
-| GET    | `/books/search`                      | Retrieves books using filters: title, author, category,year |
-| PATCH  | `/books/update/{id}`                 | Update an existing book                                     |
-| DELETE | `/books/delete/{id}`                 | Delete a book                                               |
-| POST   | `/bookitem/create`                   | Create a new book item                                      |
-| GET    | `/bookitem/search/id/{id}`           | Retrieve a book item by ID                                  |
+| Method | Endpoint                       | Description                                                 |
+|--------|--------------------------------|-------------------------------------------------------------|
+| POST   | `/book/create`                 | Create a new book                                           |
+| GET    | `/book/search/id/{id}`         | Retrieve a book by ID                                       |
+| GET    | `/book/search/isbn/{isbn}`     | Retrieve a book by ISBN                                     |
+| GET    | `/book/search`                 | Retrieves books using filters: title, author, category,year |
+| PATCH  | `/book/update/{id}`            | Update an existing book                                     |
+| DELETE | `/book/delete/{id}`            | Delete a book                                               |
+| POST   | `/bookitem/create`             | Create a new book item                                      |
+| GET    | `/bookitem/search/id/{id}`     | Retrieve a book item by ID                                  |
 | GET    | `/bookitem/search/barcode/{barcode}` | Retrieve a book item by barcode                             |
-| GET    | `/bookitem/search`                   | Retrieves books using filters: status, date and barcode     |
-| PATCH  | `/bookitem/update/{id}`              | Update an existing book item                                |
-| DELETE | `/bookitem/delete/{id}`              | Delete a book item                                          |
-| POST   | `/library/create`                    | Create a new library                                        |
-| GET    | `/library/search/{id}`               | Retrieve a library by ID                                    |
-| GET    | `/library/search`                    | Retrieves libraries using filters: name and address         |
-| PATCH  | `/library/update/{id}`               | Update an existing library                                  |
-| DELETE | `/library/delete/{id}`               | Delete a library                                            |
+| GET    | `/bookitem/search`             | Retrieves books using filters: status, date and barcode     |
+| PATCH  | `/bookitem/update/{id}`        | Update an existing book item                                |
+| DELETE | `/bookitem/delete/{id}`        | Delete a book item                                          |
+| POST   | `/library/create`              | Create a new library                                        |
+| GET    | `/library/search/{id}`         | Retrieve a library by ID                                    |
+| GET    | `/library/search`              | Retrieves libraries using filters: name and address         |
+| PATCH  | `/library/update/{id}`         | Update an existing library                                  |
+| DELETE | `/library/delete/{id}`         | Delete a library                                            |
