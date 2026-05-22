@@ -37,9 +37,14 @@ public class Library {
         bookItem.setLibrary(this);
     }
 
-    // used in BookItemServiceImpl
     public void removeBookItem(BookItem bookItem) {
         inventory.remove(bookItem);
         bookItem.setLibrary(null);
+    }
+
+    // used in AccountServiceImpl
+    public void addAccount(Account account) {
+        accounts.add(account);
+        account.setLibrary(this);
     }
 }
