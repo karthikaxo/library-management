@@ -7,6 +7,7 @@ import com.example.libraryapi.dto.library.LibraryUpdate;
 import com.example.libraryapi.service.LibraryServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +20,20 @@ public class LibraryController {
     private LibraryServiceImpl libraryService;
 
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/create")
     public LibraryCreateResponse saveLibrary(@Valid @RequestBody LibraryCreateRequest createRequest) {
         return libraryService.saveLibrary(createRequest);
     }
 
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/search/{id}")
     public LibrarySearchResponse searchLibraryById(@PathVariable Long id) {
         return libraryService.searchLibraryById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/search")
     public List<LibrarySearchResponse> searchLibraryBy(
             @RequestParam(required = false) String name,
@@ -36,6 +41,8 @@ public class LibraryController {
         return libraryService.searchLibraryBy(name, address);
     }
 
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PatchMapping("/update/{id}")
     public LibraryUpdate updateLibrary(
             @PathVariable Long id,
@@ -43,6 +50,8 @@ public class LibraryController {
         return libraryService.updateLibrary(id, libraryUpdate);
     }
 
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteLibrary(@PathVariable Long id) {
         libraryService.deleteLibrary(id);

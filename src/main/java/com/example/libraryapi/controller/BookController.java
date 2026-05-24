@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,22 +22,26 @@ public class BookController {
     private BookServiceImpl bookService;
 
 
+    @PreAuthorize("hasAnyRole('LIBRARIAN','ADMIN')")
     @PostMapping("/create")
     public BookCreateResponse saveBook(@Valid @RequestBody BookCreateRequest bookCreate) {
         return bookService.saveBook(bookCreate);
     }
 
 
+    @PreAuthorize("hasAnyRole('MEMBER','LIBRARIAN','ADMIN')")
     @GetMapping("/search/id/{id}")
     public BookSearchResponse searchBookById(@PathVariable Long id) {
         return bookService.searchBookById(id);
     }
 
+    @PreAuthorize("hasAnyRole('MEMBER','LIBRARIAN','ADMIN')")
     @GetMapping("/search/isbn/{ISBN}")
-    public BookSearchResponse searchBookById(@PathVariable String ISBN) {
+    public BookSearchResponse searchBookByIsbn(@PathVariable String ISBN) {
         return bookService.searchBookByIsbn(ISBN);
     }
 
+    @PreAuthorize("hasAnyRole('MEMBER','LIBRARIAN','ADMIN')")
     @GetMapping("/search")
     public List<BookSearchResponse> searchBookBy(
             @RequestParam(required = false) String title,
@@ -48,6 +53,7 @@ public class BookController {
     }
 
 
+    @PreAuthorize("hasAnyRole('LIBRARIAN','ADMIN')")
     @PatchMapping("/update/{id}")
     public BookUpdate updateBook(
             @PathVariable Long id,
@@ -57,6 +63,7 @@ public class BookController {
     }
 
 
+    @PreAuthorize("hasAnyRole('LIBRARIAN','ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
