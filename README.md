@@ -1,15 +1,28 @@
 ### Current Endpoints
 
-| Method | Endpoint               | Role access                               | Description                                                 |
-|--------|------------------------|-------------------------------------------|----------------------------------------------------|
-| POST   | `/library/create`      | ```ADMIN```                               | Create a new library                                        |
-| GET    | `/library/search/{id}` | ```ADMIN```                               | Retrieve a library by ID                                    |
-| GET    | `/library/search`      | ```ADMIN```                               | Retrieves libraries using filters: name and address         |
-| PATCH  | `/library/update/{id}` | ```ADMIN```                               | Update an existing library                                  |
-| DELETE | `/library/delete/{id}` | ```ADMIN```                               | Delete a library                                            |
-| POST   | `/account/create-lib`  | ```ADMIN```                               | Create a user with role ```LIBRARIAN```.                    |
-| POST   | `/account/create-mem`  | No auth                                   | Create a user with role ```MEMBER```.                          |
-| POST   | `/account/login`       | No auth                                   | Login with username and password. Returns JWT token.        |
+| Method | Endpoint                                  | Role access                  | Description                                                                    |
+|--------|-------------------------------------------|------------------------------|--------------------------------------------------------------------------------|
+| POST   | `/library/create`                         | ```ADMIN```                  | Create a new library                                                           |
+| GET    | `/library/search/{id}`                    | ```ADMIN```                  | Retrieve a library by ID                                                       |
+| GET    | `/library/search`                         | ```ADMIN```                  | Retrieves libraries using filters: name and address                            |
+| PATCH  | `/library/update/{id}`                    | ```ADMIN```                  | Update an existing library                                                     |
+| DELETE | `/library/delete/{id}`                    | ```ADMIN```                  | Delete a library                                                               |
+| POST   | `/account/create-lib`                     | ```ADMIN```                  | Create a user with role ```LIBRARIAN```.                                       |
+| POST   | `/account/create-mem`                     | No auth                      | Create a user with role ```MEMBER```.                                          |
+| POST   | `/account/login`                          | No auth                      | Login with username and password. Returns JWT token.                           |
+| GET    | `/account/search-mem/id/{id}`             | ```ADMIN```,```LIBRARIAN```  | Search for a member by their ID                                                |
+| GET    | `/account/search-lib/id/{id}`             | ```ADMIN```                  | Search for a librarian by their ID                                             |
+| GET    | `/account/search-mem/username/{username}` | ```ADMIN```,```LIBRARIAN```  | Search for a member by their username                                          |
+| GET    | `/account/search-lib/username/{username}` | ```ADMIN```                  | Search for a librarian by their username                                       |
+| GET    | `/account/search-mem/email/{email}`       | ```ADMIN```, ```LIBRARIAN``` | Search for a member by their email                                             |
+| GET    | `/account/search-lib/email/{email}`       | ```ADMIN```                  | Search for a librarian by their email                                          |
+| GET    | `/account/search-mem`                     | ```ADMIN```,```LIBRARIAN```  | Retrieves members using filters: username, createDate, lastLogin               |
+| GET    | `/account/search-lib`                     | ```ADMIN```                  | Retrieves librarians using filters: libraryID, username, createDate, lastLogin |
+| PATCH  | `/account/update-mem/{id}`                | ```ADMIN```,```MEMBER```     | Update an existing member                                                      |
+| PATCH  | `/account/update-lib/{id}`                | ```ADMIN```,```LIBRARIAN```  | Update an existing librarian                                                   |
+| PATCH  | `/account/update-pw-mem/{id}`             | ```ADMIN```,```MEMBER```     | Update an existing member's password                                           |
+| PATCH  | `/account/update-pw-lib/{id}`             | ```ADMIN```,```LIBRARIAN```  | Update an existing librarian's password                                        |
+| DELETE | `/account/delete/{id}`                    | ```ADMIN```                                | Delete an account                                                              |
 | POST   | `/book/create`                 | ```ADMIN```,```LIBRARIAN```               | Create a new book                                           |
 | GET    | `/book/search/id/{id}`         | ```ADMIN```,```LIBRARIAN```, ```MEMBER``` | Retrieve a book by ID                                       |
 | GET    | `/book/search/isbn/{isbn}`     | ```ADMIN```,```LIBRARIAN```, ```MEMBER```                  | Retrieve a book by ISBN                                     |
