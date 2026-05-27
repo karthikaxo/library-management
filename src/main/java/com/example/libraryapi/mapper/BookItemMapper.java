@@ -11,6 +11,7 @@ import com.example.libraryapi.entity.BookItemStatus;
 import com.example.libraryapi.entity.Lending;
 import com.example.libraryapi.entity.LendingStatus;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class BookItemMapper {
@@ -42,7 +43,7 @@ public class BookItemMapper {
             Lending lending1 = bookItem.getLendings().stream()
                     .filter(lending -> lending.getStatus() == LendingStatus.ACTIVE ||
                             lending.getStatus() == LendingStatus.LOST)
-                    .findFirst()
+                    .max(Comparator.comparing(Lending::getBorrowDate))
                     .orElse(null);
 
             if (lending1 != null) {
