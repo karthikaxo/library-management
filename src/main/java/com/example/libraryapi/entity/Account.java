@@ -11,11 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table
-@Data // getters, setters, toString, equals, and hashCode methods
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account implements UserDetails {
@@ -46,7 +45,7 @@ public class Account implements UserDetails {
     @Column
     private LocalDate lastLogin;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Lending> lendings; // books borrowed, returned etc
 
 
@@ -77,6 +76,16 @@ public class Account implements UserDetails {
     @Override
     public boolean isEnabled() { // is account active
         return true;
+    }
+
+
+
+    // helper methods
+
+    // LendingServiceImpl
+    public void addLending(Lending lending) {
+        lendings.add(lending);
+        lending.setAccount(this);
     }
 
 

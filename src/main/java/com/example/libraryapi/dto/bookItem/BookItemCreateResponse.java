@@ -16,6 +16,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class BookItemCreateResponse {
+
+    @NotNull
     @Positive
     private Long id;
 

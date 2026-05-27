@@ -14,7 +14,8 @@ import java.util.List;
 @Builder
 public class BookSearchResponse {
 
-    @PositiveOrZero
+    @NotNull
+    @Positive
     private Long id;
 
     @NotBlank

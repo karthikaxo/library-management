@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @Builder
 public class BookItemSearchResponse {
 
+    @NotNull
     @Positive
     private Long id;
 

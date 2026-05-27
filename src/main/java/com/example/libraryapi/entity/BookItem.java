@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table
-@Data // getters, setters, toString, equals, and hashCode methods
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookItem {
@@ -36,6 +36,15 @@ public class BookItem {
     @Column(nullable = false)
     private BookItemStatus status;
 
-    @OneToMany(mappedBy = "bookItem")
+    @OneToMany(mappedBy = "bookItem", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Lending> lendings;
+
+
+    // helper methods
+
+    // LendingServiceImpl
+    public void addLending(Lending lending) {
+        lendings.add(lending);
+        lending.setBookItem(this);
+    }
 }
