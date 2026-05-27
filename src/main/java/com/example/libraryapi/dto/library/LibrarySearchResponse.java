@@ -4,7 +4,7 @@ import com.example.libraryapi.dto.library.SearchResponseExtra.InventoryResponse;
 import com.example.libraryapi.dto.library.SearchResponseExtra.LibrarianResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class LibrarySearchResponse {
-    @PositiveOrZero
+
+    @NotNull
+    @Positive
     private Long id;
 
     @NotBlank

@@ -21,6 +21,7 @@ public class LibrarianCreateRequest {
     @NotBlank
     private String password;
 
+    @NotNull
     @Positive
     private Long libraryID; // assigned library
 }

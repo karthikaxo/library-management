@@ -16,6 +16,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class LibrarianSearchResponse {
+
+    @NotNull
     @Positive
     private Long id;
 

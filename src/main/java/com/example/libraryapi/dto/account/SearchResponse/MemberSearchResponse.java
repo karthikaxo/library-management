@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @Builder
 public class MemberSearchResponse {
 
+    @NotNull
     @Positive
     private Long id;
 

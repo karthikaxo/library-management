@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LibrarianResponse {
+
+    @NotNull
     @Positive
     private Long id;
 
