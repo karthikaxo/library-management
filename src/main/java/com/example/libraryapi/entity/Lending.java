@@ -38,6 +38,6 @@ public class Lending {
     @Column(nullable = false)
     private LendingStatus status;
 
-    @OneToOne(mappedBy = "lending") // only if book is 'LOST'
+    @OneToOne(mappedBy = "lending", orphanRemoval = true, cascade = CascadeType.ALL) // only if book is 'LOST'
     private Fine fine;
 }
