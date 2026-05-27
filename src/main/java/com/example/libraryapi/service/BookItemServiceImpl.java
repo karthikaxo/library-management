@@ -113,26 +113,25 @@ public class BookItemServiceImpl {
         BookItem bookItem = bookItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("This book item ID cannot be found."));
 
-        if (bookItemRepository.existsByBarcode(bookItemUpdate.getBarcode())) {
-            BookItem existingBookItem = bookItemRepository.findByBarcode(bookItemUpdate.getBarcode());
-            if (existingBookItem != null && !existingBookItem.getId().equals(id)) {
-                throw new RuntimeException("This barcode already exists.");
+        if (bookItemUpdate.getBarcode() != null) {
+            if (bookItemRepository.existsByBarcode(bookItemUpdate.getBarcode())) {
+                BookItem existingBookItem = bookItemRepository.findByBarcode(bookItemUpdate.getBarcode());
+                if (existingBookItem != null && !existingBookItem.getId().equals(id)) {
+                    throw new RuntimeException("This barcode already exists.");
+                }
             }
+            bookItem.setBarcode(bookItemUpdate.getBarcode());
         }
 
         if (bookItemUpdate.getLibraryId() != null) {
+            Library library = libraryRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("This library ID cannot be found."));
             // remove old lib
             if (bookItem.getLibrary() != null) {
                 bookItem.getLibrary().removeBookItem(bookItem);
             }
             // set new lib
-            Library library = libraryRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("This library ID cannot be found."));
             library.addBookItem(bookItem);
-        }
-
-        if (bookItemUpdate.getBarcode() != null) {
-            bookItem.setBarcode(bookItemUpdate.getBarcode());
         }
 
         if (bookItemUpdate.getStatus() != null) {
