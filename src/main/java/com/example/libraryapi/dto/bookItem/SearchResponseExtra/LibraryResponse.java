@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
+// Also used in LibrarianSearchResponse
 public class LibraryResponse {
 
     @NotBlank

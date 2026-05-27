@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
+// Also used in MemberSearchResponse
 public class LendingResponse {
 
     @Positive

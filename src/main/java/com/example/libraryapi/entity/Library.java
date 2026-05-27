@@ -47,4 +47,10 @@ public class Library {
         accounts.add(account);
         account.setLibrary(this);
     }
+
+    // used in AccountServiceImpl
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+        account.setLibrary(null);
+    }
 }
