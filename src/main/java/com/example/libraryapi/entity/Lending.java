@@ -40,4 +40,12 @@ public class Lending {
 
     @OneToOne(mappedBy = "lending", orphanRemoval = true, cascade = CascadeType.ALL) // only if book is 'LOST'
     private Fine fine;
+
+    // helper methods
+
+    // used in FineService
+    public void addFine(Fine fine) {
+        this.fine = fine;
+        fine.setLending(this);
+    }
 }

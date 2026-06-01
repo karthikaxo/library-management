@@ -8,6 +8,7 @@ import com.example.libraryapi.mapper.LendingMapper;
 import com.example.libraryapi.repository.AccountRepository;
 import com.example.libraryapi.repository.BookItemRepository;
 import com.example.libraryapi.repository.LendingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,9 @@ public class LendingServiceImpl {
     private final LendingRepository lendingRepository;
     private final BookItemRepository bookItemRepository;
     private final AccountRepository accountRepository;
+
+    @Autowired
+    private FineServiceImpl fineService;
 
 
     public LendingServiceImpl(LendingRepository lendingRepository, BookItemRepository bookItemRepository, AccountRepository accountRepository) {
@@ -111,6 +115,12 @@ public class LendingServiceImpl {
         Lending lending = lendingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("This lending ID cannot be found."));
 
+        // if lending is previously LOST and is now RETURNED, then delete Fine associated with lending
+        if (lending.getStatus() == LendingStatus.LOST) {
+            fineService.deleteFine(lending.getFine().getId());
+            lending.setFine(null);
+        }
+
         lending.setReturnDate(LocalDate.now());
         lending.setStatus(LendingStatus.RETURNED);
         Lending updatedLending = lendingRepository.save(lending);
@@ -118,7 +128,29 @@ public class LendingServiceImpl {
         return LendingMapper.createToResponse(updatedLending);
     }
 
-    // lost status set with FineService
+    // Roles: Admin, Librarian
+    public LendingResponse lostLending(Long id) {
+        Lending lending = lendingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("This lending ID cannot be found."));
+
+        // if this lending has already been returned
+        if (lending.getStatus() == LendingStatus.RETURNED) {
+            throw new RuntimeException("This lending cannot be set to LOST as the book has already been returned.");
+        }
+
+        // if a Fine has already been set with status PAID
+        if (lending.getFine().getStatus() == FineStatus.PAID) {
+            throw new RuntimeException("This lending is already lost and the fine has already been paid off.");
+        }
+
+        lending.setStatus(LendingStatus.LOST);
+        Lending updatedLending = lendingRepository.save(lending);
+
+        // set Fine
+        fineService.createFine(updatedLending);
+
+        return LendingMapper.createToResponse(updatedLending);
+    }
 
 
     // ================= DELETE =================

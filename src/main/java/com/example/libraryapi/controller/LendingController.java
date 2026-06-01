@@ -51,6 +51,12 @@ public class LendingController {
     }
 
     @PreAuthorize("hasAnyRole('LIBRARIAN','ADMIN')")
+    @PatchMapping("/lost/{id}")
+    public LendingResponse lostLending(@PathVariable Long id)  {
+        return lendingService.lostLending(id);
+    }
+
+    @PreAuthorize("hasAnyRole('LIBRARIAN','ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteLending(@PathVariable Long id) {
         lendingService.deleteLending(id);

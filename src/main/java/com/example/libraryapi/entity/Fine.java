@@ -25,9 +25,6 @@ public class Fine {
     private Lending lending;
 
     @Column(nullable = false)
-    private int amountPaid;
-
-    @Column(nullable = false)
     private LocalDate createdAt;
 
     @Enumerated(EnumType.STRING)
