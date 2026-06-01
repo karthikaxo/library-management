@@ -55,4 +55,4 @@ ensuring that only certain roles can access and perform sensitive operations.
 | PATCH  | `/lending/lost/{id}`                      | ```ADMIN```,```LIBRARIAN```                                  | Update lending status when book is lost                                        |
 | DELETE | `/lending/delete/{id}`                    | ```ADMIN```,```LIBRARIAN```                                  | Delete a lending record                                                        |
 | GET      | `/fine/search/{id}`                       | ```ADMIN```,```LIBRARIAN```                                  | Retrieve fine by ID                                                            |
-| PATCH  | `/fine/piad/{id}`                         | ```ADMIN```,```LIBRARIAN```                                  | Update fine status when paid off                                               |
+| PATCH  | `/fine/paid/{id}`                         | ```ADMIN```,```LIBRARIAN```                                  | Update fine status when paid off                                               |
